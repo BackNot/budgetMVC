@@ -1,0 +1,22 @@
+﻿@using Budget.Common
+@{
+    this.ViewData["Title"] = "Home Page";
+}
+
+    <div class="row mt-1">
+        <div class="col-md-12">
+            <div class="row mt-5">
+                <div class="col-4">
+                    <p class="display-4">
+                        <span id="money-amount ">Total amount: @ViewBag.total</span>
+                    </p>
+                </div>
+                <div class="col-8">
+                    <div id="piechart"> </div>
+                </div>
+                <input type="text" id="incomes" value="@ViewBag.incomes" hidden />
+                <input type="text" id="expenses" value="@ViewBag.expenses" hidden />
+
+            </div>
+        </div>
+    </div>
