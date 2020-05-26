@@ -38,7 +38,6 @@
             return this.Redirect("/Home/Index");
         }
 
-        [HttpGet]
         public IActionResult Edit(int id)
         {
             var model = this.expenseService.GetById<EditViewModel>(id);
@@ -65,5 +64,14 @@
             return this.Redirect("#");
         }
 
+        public IActionResult All()
+        {
+            var model = new AllViewModel
+            {
+                Expenses = this.expenseService.GetAll<ExpenseViewModel>(),
+            };
+
+            return this.View(model);
+        }
     }
 }
