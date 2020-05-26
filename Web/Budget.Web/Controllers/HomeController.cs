@@ -41,6 +41,7 @@
             this.ViewBag.expenses = expenseSum;
             this.ViewBag.incomes = incomeSum;
             this.ViewBag.total = incomeSum - expenseSum;
+            this.ViewBag.IsUserLogged = userId != null ? true : false;
             return this.View();
         }
 

@@ -10,7 +10,16 @@
                     <p class="display-4">
                         <span id="money-amount ">Total amount: @ViewBag.total</span>
                     </p>
-                </div>
+                    @{ 
+                        if (!ViewBag.IsUserLogged)
+                        {
+                            <text> <span class="text-danger text-center">
+                                        Login/register in order to use the system correctly.
+                                   </span> 
+                            </text>
+}
+}
+</div>
                 <div class="col-8">
                     <div id="piechart"> </div>
                 </div>

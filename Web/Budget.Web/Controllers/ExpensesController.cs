@@ -33,7 +33,7 @@
         {
             var userId = this.userManager.GetUserId(this.User);
             var date = DateTime.Parse(inputModel.Date);
-            await this.expenseService.AddAsync(userId, inputModel.Amount, date);
+            await this.expenseService.AddAsync(userId, inputModel.Amount, date, inputModel.IsRepeating);
 
             return this.Redirect("/Home/Index");
         }

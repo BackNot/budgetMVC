@@ -13,5 +13,7 @@
         public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
+
+        public bool IsRepeating { get; set; }
     }
 }

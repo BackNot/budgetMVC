@@ -65,6 +65,8 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IExpenseService, ExpenseService>();
+            services.AddTransient<IIncomesService, IncomesService>();
+
 
         }
 

@@ -1,10 +1,11 @@
-﻿namespace Budget.Services.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 
-    public interface IExpenseService
+namespace Budget.Services.Data
+{
+    public interface IIncomesService
     {
         Task AddAsync(string userId, decimal amount, DateTime date, bool isRepeating);
 
