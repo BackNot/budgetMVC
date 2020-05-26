@@ -37,5 +37,33 @@
 
             return this.Redirect("/Home/Index");
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var model = this.expenseService.GetById<EditViewModel>(id);
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditViewModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.expenseService.EditAsync(input.Id, input.Amount, input.Data);
+            return this.Redirect("#");
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.expenseService.DeleteAsync(id);
+
+            return this.Redirect("#");
+        }
+
     }
 }

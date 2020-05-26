@@ -1,11 +1,13 @@
 ﻿namespace Budget.Services.Data
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Budget.Data.Common.Repositories;
     using Budget.Data.Models;
+    using Budget.Services.Mapping;
 
     public class ExpenseService : IExpenseService
     {
@@ -32,11 +34,7 @@
 
         public async Task DeleteAsync(int id)
         {
-            var exist = this.expenseRepository.All().Any(b => b.Id == id);
-            if (!exist)
-            {
-                throw new ArgumentException($"Expense with id {id} don't exist");
-            }
+            this.IsExist(id);
 
             var expense = await this.expenseRepository.GetByIdWithDeletedAsync(id);
             expense.IsDeleted = true;
@@ -45,12 +43,7 @@
 
         public async Task EditAsync(int id, decimal amount, DateTime date)
         {
-            var exist = this.expenseRepository.All().Any(e => e.Id == id);
-
-            if (exist == false)
-            {
-                throw new ArgumentException($"Expense  with id {id} doesn't exist!");
-            }
+            this.IsExist(id);
 
             var expense = await this.expenseRepository.GetByIdWithDeletedAsync(id);
 
@@ -58,6 +51,36 @@
             expense.Date = date;
 
             await this.expenseRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> GetAll<T>()
+        {
+            var expenses = this.expenseRepository.All()
+                .To<T>()
+                .ToList();
+
+            return expenses;
+        }
+
+        public T GetById<T>(int id)
+        {
+            this.IsExist(id);
+            var expense = this.expenseRepository.All()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefault();
+
+            return expense;
+        }
+
+        private void IsExist(int id)
+        {
+            var exist = this.expenseRepository.All().Any(e => e.Id == id);
+
+            if (exist == false)
+            {
+                throw new ArgumentException($"Expense  with id {id} doesn't exist!");
+            }
         }
     }
 }
